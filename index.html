@@ -16,8 +16,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<link href="css/common.css" rel="stylesheet">
+<!-- <link href="css/style.css" rel="stylesheet">
+<link href="css/common.css" rel="stylesheet"> -->
 <link rel="shortcut icon" href="">
 
 <!--[if lt IE 9]>
@@ -28,14 +28,37 @@
 </head>
 <body>
 
+<div id="app" class="container">
+	<h1>Task list</h1>
 
-<p>gagag</p>
+	<table class="table">
+		<tr v-for="(task, index) in tasks">
+			<td>
+				<p v-if="!task.editable">{{ task.text }}</p>
+				<input class="form-control" v-if="task.editable" v-model="task.text" v-on:keyup.enter="editTask(index, task.text)">
+			</td>
+			<td>
+				<button type="button" class="btn btn-default" v-on:click="makeTaskEditable(index)">edit</button>
+			</td>
+			<td>
+				<button type="button" class="btn btn-danger" v-on:click="deleteTask(index)">delete</button>
+			</td>
+		</tr>
+	</table>
+
+	<h2>Add new task</h2>
+	<div class="form-group">
+		<form v-on:submit.prevent="addTask">
+			<input class="form-control" v-model="newTaskName" type="text">
+			<button type="submit" class="btn btn-primary" style="margin-top:10px">Add new task</button>
+		</form>
+	</div>
+</div>
+
 <!-- SCRIPTS -->
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
